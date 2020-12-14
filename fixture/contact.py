@@ -13,16 +13,7 @@ class ContactHelper:
         # init contact creation
         wd.find_element_by_link_text("add new").click()
         # fill contact form
-        wd.find_element_by_name("firstname").click()
-        wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(contact.firstname)
-        wd.find_element_by_name("middlename").clear()
-        wd.find_element_by_name("middlename").send_keys(contact.middlename)
-        wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(contact.lastname)
-        wd.find_element_by_name("mobile").click()
-        wd.find_element_by_name("mobile").clear()
-        wd.find_element_by_name("mobile").send_keys(contact.mobilephone)
+        self.fill_form(contact, wd)
         # submit contact creation
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
         self.return_to_home_page()
@@ -43,6 +34,12 @@ class ContactHelper:
         # group edit init first contact
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
         # fill contact form
+        self.fill_form(contact, wd)
+        # submit contact update
+        wd.find_element_by_name("update").click()
+        self.return_to_home_page()
+
+    def fill_form(self, contact, wd):
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(contact.firstname)
@@ -53,9 +50,5 @@ class ContactHelper:
         wd.find_element_by_name("mobile").click()
         wd.find_element_by_name("mobile").clear()
         wd.find_element_by_name("mobile").send_keys(contact.mobilephone)
-        # submit contact update
-        wd.find_element_by_name("update").click()
-        self.return_to_home_page()
-
 
 
