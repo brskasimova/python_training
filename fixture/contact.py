@@ -30,6 +30,7 @@ class ContactHelper:
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
+        wd.find_element_by_css_selector("div.msgbox")
         self.app.open_home_page()
 
     def edit_first_contact(self, new_contact_data):
