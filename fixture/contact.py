@@ -92,4 +92,4 @@ class ContactHelper:
                 firstname = element.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + str(i) + "]/td[3]").text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 self.contact_cache.append(Contact(lastname=lastname, firstname=firstname, id=id))
-            return list(self.contact_cache)
+        return list(self.contact_cache)
