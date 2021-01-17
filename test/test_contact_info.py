@@ -3,8 +3,18 @@ import re
 from random import randrange
 
 
-def test_phones_on_home_page(app):
-    if app.contact.count() == 0:
+def test_contact_info_home_vs_db(app, db):
+    if len(db.get_contact_list()) == 0:
+        app.contact.create(Contact(firstname="testfirstname3", middlename="testmiddlename3", lastname="testlastname3",
+                      homephone="73000000000", mobilephone="73000000001", workphone="73000000002", address="test address 1",
+                      secondaryphone="73000000003", email="3email@mail.ru", email2="3email2@mail.ru", email3="3email3@mail.ru"))
+    contact_from_home_page = app.contact.get_contact_list()
+    contact_from_db = db.get_contact_list()
+    assert sorted(contact_from_home_page, key=Contact.id_or_max) == sorted(contact_from_db, key=Contact.id_or_max)
+
+
+def test_contact_info_home_vs_edit(app, db):
+    if len(db.get_contact_list()) == 0:
         app.contact.create(Contact(firstname="testfirstname3", middlename="testmiddlename3", lastname="testlastname3",
                       homephone="73000000000", mobilephone="73000000001", workphone="73000000002", address="test address 1",
                       secondaryphone="73000000003", email="3email@mail.ru", email2="3email2@mail.ru", email3="3email3@mail.ru"))
@@ -19,8 +29,8 @@ def test_phones_on_home_page(app):
     assert contact_from_home_page.all_emails_from_home_page == merge_emails_like_from_home_page(contact_from_edit_page)
 
 
-def test_phones_on_contact_view_page(app):
-    if app.contact.count() == 0:
+def test_contact_info_home_vs_view(app, db):
+    if len(db.get_contact_list()) == 0:
         app.contact.create(Contact(firstname="testfirstname3", middlename="testmiddlename3", lastname="testlastname3",
                       homephone="73000000000", mobilephone="73000000001", workphone="73000000002",
                       secondaryphone="73000000003", email="3email@mail.ru", email2="3email2@mail.ru", email3="3email3@mail.ru"))
